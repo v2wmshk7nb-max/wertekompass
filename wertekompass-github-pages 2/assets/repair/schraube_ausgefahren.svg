@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="106" height="72" viewBox="0 0 106 72">
+    <defs><radialGradient id="metal" cx="35%" cy="25%" r="75%"><stop offset="0" stop-color="#F7F8F6"/><stop offset=".48" stop-color="#CDD3D3"/><stop offset=".8" stop-color="#929CA0"/><stop offset="1" stop-color="#495359"/></radialGradient></defs>
+    <g><rect x="36.0" y="30" width="46.0" height="10" rx="4" fill="#68757A" stroke="#1E3035" stroke-width="2"/>
+    <path d="M 38.0 31 H 82.0" stroke="#D9E0E1" stroke-width="2" opacity=".9"/>
+    <path d="M 41.0 29 l 5 12" stroke="#25343A" stroke-width="2"/><path d="M 47.2 29 l 5 12" stroke="#25343A" stroke-width="2"/><path d="M 53.4 29 l 5 12" stroke="#25343A" stroke-width="2"/><path d="M 59.6 29 l 5 12" stroke="#25343A" stroke-width="2"/><path d="M 65.8 29 l 5 12" stroke="#25343A" stroke-width="2"/><path d="M 72.0 29 l 5 12" stroke="#25343A" stroke-width="2"/></g>
+    <ellipse cx="30.0" cy="38.0" rx="20.0" ry="20.0" fill="#452E1C" opacity=".18"/>
+    <circle cx="27.0" cy="35.0" r="18.0" fill="url(#metal)" stroke="#243138" stroke-width="2.8"/>
+    <path d="M 18.0 27.0 Q 24.0 22.0 32.0 25.0" fill="none" stroke="#FFFFFF" stroke-width="2" opacity=".65"/>
+    <g transform="translate(27.0 35.0)">
+       <path d="M -3 -10 Q 0 -12 3 -10 L 3 -4 L 9 -4 Q 11 -2 10 2 L 4 2 L 4 9 Q 2 12 -2 10 L -2 3 L -9 3 Q -11 0 -9 -3 L -3 -3 Z" fill="#263137" stroke="#11191C" stroke-width="1.1"/>
+    </g>
+    </svg>

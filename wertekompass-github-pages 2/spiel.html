@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><script>if(window.parent===window)location.replace("./");</script><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#314c35"><title>Wertekompass · Schulwelt</title><link rel="stylesheet" href="style.css?v=rundenhilfe-1"></head>
+<body><div id="game" data-view="start">
+<section id="world" aria-label="Schulwelt" aria-hidden="true" inert>
+<div id="world-camera">
+<img class="background" src="assets/schulwelt_hauptbild.jpeg" alt="Eine lebendige Schulwelt mit Kindern beim Lernen, Gärtnern und gemeinsamen Gestalten." draggable="false">
+<button id="bench-entry" class="world-action" type="button" aria-label="Bank streichen" disabled><svg viewBox="0 0 400 280" aria-hidden="true"><g class="done-badge" transform="translate(320 35)"><circle r="25"/><path d="m-12 0 8 9 17-19"/></g></svg></button>
+<button id="garden-entry" class="world-action" type="button" aria-label="Garten bepflanzen" disabled><svg viewBox="0 0 400 280" aria-hidden="true"><g class="done-badge" transform="translate(320 35)"><circle r="25"/><path d="m-12 0 8 9 17-19"/></g></svg></button>
+<button id="muell-entry" class="world-action" type="button" aria-label="Müll sortieren" disabled><svg viewBox="0 0 400 280" aria-hidden="true"><g class="done-badge" transform="translate(320 35)"><circle r="25"/><path d="m-12 0 8 9 17-19"/></g></svg></button>
+<button id="repair-entry" class="world-action" type="button" aria-label="Spielgerät reparieren" disabled><svg viewBox="0 0 400 280" aria-hidden="true"><g class="done-badge" transform="translate(320 35)"><circle r="25"/><path d="m-12 0 8 9 17-19"/></g></svg></button>
+<button id="basketball-entry" class="world-action" type="button" aria-label="Basketball spielen" disabled><svg viewBox="0 0 400 280" aria-hidden="true"><g class="done-badge" transform="translate(320 35)"><circle r="25"/><path d="m-12 0 8 9 17-19"/></g></svg></button>
+<button id="board-entry" type="button" aria-label="Werteboard öffnen" hidden></button>
+<svg id="world-garden-detail" viewBox="0 0 1448 1086" aria-hidden="true"></svg>
+<svg class="world-cues" viewBox="0 0 1448 1086" aria-hidden="true" focusable="false">
+ <defs>
+  <g id="object-basketball"><circle r="20"/></g>
+  <g id="object-repair"><path d="M18 17Q21 12 31 13L37 10 55 13 62 16 70 17 76 23 83 24Q88 25 84 30L76 31 71 36 56 39 48 39 44 50 40 60 47 61Q52 65 51 72L48 77 19 78Q11 77 11 70L13 65 22 60 24 54M23 37Q15 37 13 29Q12 22 18 17"/></g>
+  <g id="object-garden"><path d="M20 31 161 17Q168 16 168 23L169 67Q169 73 162 75L25 98Q17 99 17 91L17 37Q17 33 20 31Z"/></g>
+  <g id="object-bench"><path d="M51 108 71 23Q72 19 79 19L197 35 M279 47 371 58Q379 59 377 66L356 151 M52 109 171 119 M266 137 287 149 286 163 242 176 26 151Q21 149 24 142L28 130 52 109 M47 154 33 211Q34 215 48 215L63 156 M228 175 212 241Q214 245 229 246L248 175"/></g>
+  <g id="object-muell"><path d="M19 43 45 30 86 26 M112 29 161 24 184 21 237 16 275 48 274 76 M266 104 249 162 216 174 143 189 65 209Q45 210 22 196L18 183 19 43 M19 43 64 76 142 59 115 32 M142 59 143 189 M64 76 65 209 M118 32 157 61 213 54 184 24 M213 54 216 174 249 162 M213 54 275 48"/></g>
+ </defs>
+ <g data-cue="basketball" transform="translate(1228 148)">
+  <use href="#object-basketball" class="cue-shadow"/><use href="#object-basketball" class="cue-shimmer"/><use href="#object-basketball" class="cue-edge"/>
+ </g>
+ <g data-cue="repair" transform="translate(1205 485)">
+  <use href="#object-repair" class="cue-shadow"/><use href="#object-repair" class="cue-shimmer"/><use href="#object-repair" class="cue-edge"/>
+ </g>
+ <g data-cue="garden" transform="translate(700 765)">
+  <use href="#object-garden" class="cue-shadow"/><use href="#object-garden" class="cue-shimmer"/><use href="#object-garden" class="cue-edge"/>
+ </g>
+ <g data-cue="bench" transform="translate(1060 650)">
+  <use href="#object-bench" class="cue-shadow"/><use href="#object-bench" class="cue-shimmer"/><use href="#object-bench" class="cue-edge"/>
+ </g>
+ <g data-cue="muell" transform="translate(105 785)">
+  <use href="#object-muell" class="cue-shadow"/><use href="#object-muell" class="cue-shimmer"/><use href="#object-muell" class="cue-edge"/>
+ </g>
+</svg>
+</div>
+</section>
+<main id="scene" aria-label="Bank streichen" aria-busy="true" aria-hidden="true" inert>
+<img class="background" src="assets/bank_szene_start.png" alt="Zwei Kinder neben einer Holzbank. Darunter stehen vier Farbtöpfe und ein Pinsel." draggable="false">
+<canvas id="paint" aria-label="Mit dem Finger die Holzbank streichen"></canvas>
+<div id="tools" role="group" aria-label="Malfarben und Pinsel"></div>
+<canvas id="progress" width="320" height="80" role="progressbar" aria-label="Gestrichene Holzfläche" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></canvas>
+<div id="error" role="alert" hidden></div>
+</main><section id="garden-scene" aria-label="Garten bepflanzen" aria-busy="true" aria-hidden="true" inert>
+<img class="background" src="assets/garden/garten_szene_start.png" alt="Ein Hochbeet mit einer freien Erdstelle. Drei Setzlinge stehen in Töpfen davor, links liegt eine Schaufel, oben hält ein Kind eine Gießkanne." draggable="false">
+<div class="garden-error" role="alert" hidden></div>
+</section>
+<section id="muell-scene" aria-label="Müll sortieren" aria-hidden="true" aria-busy="true" inert>
+<img class="background" alt="Drei Mülltonnen auf dem Schulhof mit zwei Kindern und einer Leseecke." draggable="false">
+<svg class="waste-floor" viewBox="0 0 1122 1402" aria-hidden="true"></svg>
+<div class="waste-success-light" aria-hidden="true"></div>
+<div class="garden-error" role="alert" hidden></div>
+</section>
+<section id="repair-scene" aria-label="Spielgerät reparieren" aria-hidden="true" aria-busy="true" inert data-phase="choose">
+<img class="background" alt="Zwei Kinder reparieren gemeinsam ein Holzbrett am Klettergerät." draggable="false">
+<svg class="repair-art" viewBox="0 0 1448 1086" aria-hidden="true"></svg>
+<button class="repair-control" data-trigger type="button" aria-label="Auslöser gedrückt halten" aria-pressed="false" disabled></button>
+<div class="garden-error" role="alert" hidden></div>
+</section>
+<section id="basketball-scene" aria-label="Basketball spielen" aria-hidden="true" aria-busy="true" inert data-phase="idle">
+ <div class="basketball-field">
+  <img class="background" alt="Zwei Kinder auf dem Schulhof am Basketballkorb." draggable="false">
+  <img class="basketball-shadow" alt="" draggable="false">
+  <svg class="basketball-hint" viewBox="0 0 1448 1086" aria-hidden="true"><path d="M629 904Q652 856 709 806m-34 7 34-7-7 34"/></svg>
+  <button class="basketball-ball" type="button" aria-label="Basketball zum Korb wischen"><img alt="" draggable="false"></button>
+  <svg class="basketball-front" viewBox="0 0 1448 1086" aria-hidden="true"></svg>
+ </div>
+ <div class="garden-error" role="alert" hidden></div>
+</section>
+<section id="start-screen" aria-label="Wertekompass starten">
+ <button id="start-button" type="button">Starten</button>
+</section>
+<section id="values-board" aria-labelledby="board-heading" hidden>
+ <audio id="board-audio" preload="none" hidden></audio>
+ <div class="board-paper"><h1 id="board-heading">Frage des Monats</h1><p id="board-question"></p></div>
+</section>
+</div><script type="module" src="world.js?v=rundenhilfe-1"></script></body></html>

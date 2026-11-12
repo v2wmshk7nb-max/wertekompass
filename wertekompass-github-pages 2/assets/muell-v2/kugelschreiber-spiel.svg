@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 105" width="220" height="105">
+<defs><linearGradient id="body" x2="0" y2="1"><stop stop-color="#74829d"/><stop offset=".3" stop-color="#4d5977"/><stop offset="1" stop-color="#262b40"/></linearGradient><linearGradient id="metal" x2="0" y2="1"><stop stop-color="#f2dec7"/><stop offset="1" stop-color="#837b87"/></linearGradient></defs>
+<g stroke="#39303c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-17 110 52)">
+<path fill="url(#body)" d="M19 36 Q11 36 11 47 L12 58 Q12 68 22 69 L99 69 91 61 102 54 93 49 100 38Z"/>
+<path fill="url(#body)" transform="rotate(9 120 54)" d="M116 39 109 49 118 53 110 61 118 69 181 68 Q190 67 191 58 L191 47 Q189 40 181 39Z"/>
+<path fill="url(#metal)" d="M190 47 209 60 189 64Z"/><path d="m206 59 7 2" stroke="#443343"/>
+<path d="M25 37 65 37 Q71 39 64 44 L32 47" fill="none" stroke="#a9aab8" stroke-width="5"/>
+<path d="m28 54 32-2 m-28 9 44-2 m48-10 43 6" stroke="#cbc0c5" stroke-width="2" opacity=".53"/>
+<path d="m102 56 9 2 m-10 1-5 4" stroke="#bc9975" stroke-width="2"/>
+</g></svg>

@@ -1,0 +1,126 @@
+{
+  "imageWidth": 1671,
+  "imageHeight": 941,
+  "maskFilename": "bank_malmaske.png",
+  "benchSlats": [
+    {
+      "name": "lehne_oben",
+      "points": [
+        [
+          433,
+          230
+        ],
+        [
+          1215,
+          229
+        ],
+        [
+          1218,
+          307
+        ],
+        [
+          429,
+          307
+        ]
+      ]
+    },
+    {
+      "name": "lehne_mitte",
+      "points": [
+        [
+          427,
+          326
+        ],
+        [
+          1221,
+          324
+        ],
+        [
+          1226,
+          399
+        ],
+        [
+          423,
+          399
+        ]
+      ]
+    },
+    {
+      "name": "lehne_unten",
+      "points": [
+        [
+          418,
+          416
+        ],
+        [
+          1227,
+          415
+        ],
+        [
+          1231,
+          486
+        ],
+        [
+          415,
+          486
+        ]
+      ]
+    },
+    {
+      "name": "sitz_hinten",
+      "points": [
+        [
+          413,
+          504
+        ],
+        [
+          1236,
+          504
+        ],
+        [
+          1252,
+          542
+        ],
+        [
+          396,
+          539
+        ]
+      ]
+    },
+    {
+      "name": "sitz_vorne",
+      "points": [
+        [
+          375,
+          547
+        ],
+        [
+          1272,
+          547
+        ],
+        [
+          1283,
+          610
+        ],
+        [
+          363,
+          610
+        ]
+      ]
+    }
+  ],
+  "colors": {
+    "rot": "#D63F35",
+    "gelb": "#F2C641",
+    "blau": "#337BBE",
+    "gruen": "#4F9A5B"
+  },
+  "completionThreshold": 0.8,
+  "rules": [
+    "Farbe nur auf weißen Maskenpixeln auftragen",
+    "Bereits eingefärbte Pixel behalten ihre erste Farbe",
+    "Vier Farben frei wählbar",
+    "Beim Malen originale Holzmaserung durch geeigneten Blendmodus sichtbar lassen",
+    "Ab 80 Prozent der maskierten Fläche Aktion beenden"
+  ]
+}
