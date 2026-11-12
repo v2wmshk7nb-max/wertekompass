@@ -1,0 +1,79 @@
+{
+  "coordinateSpace": {
+    "width": 1122,
+    "height": 1402
+  },
+  "background": "muell_szene_sauber.png",
+  "reference": "muell_szene_original.png",
+  "items": [
+    {
+      "id": "papier",
+      "label": "Zerknuelltes Papier",
+      "asset": "muell_objekt_papier.png",
+      "target": "papier",
+      "start": {
+        "x": 300,
+        "y": 1100
+      }
+    },
+    {
+      "id": "verpackung",
+      "label": "Snackverpackung",
+      "asset": "muell_objekt_verpackung.png",
+      "target": "verpackung",
+      "start": {
+        "x": 456,
+        "y": 1110
+      }
+    },
+    {
+      "id": "rest",
+      "label": "Kaputter Kugelschreiber",
+      "asset": "muell_objekt_defekter_kugelschreiber.svg",
+      "target": "rest",
+      "start": {
+        "x": 660,
+        "y": 1100
+      }
+    }
+  ],
+  "bins": [
+    {
+      "id": "papier",
+      "name": "Papier",
+      "region": {
+        "x": 170,
+        "y": 645,
+        "width": 250,
+        "height": 425
+      }
+    },
+    {
+      "id": "verpackung",
+      "name": "Verpackungen",
+      "region": {
+        "x": 415,
+        "y": 645,
+        "width": 220,
+        "height": 425
+      }
+    },
+    {
+      "id": "rest",
+      "name": "Restmuell",
+      "region": {
+        "x": 610,
+        "y": 645,
+        "width": 230,
+        "height": 425
+      }
+    }
+  ],
+  "rules": {
+    "requiredSorted": 3,
+    "countActionOnlyAfterAll": true,
+    "noTextPrompts": true,
+    "keepExistingBankAndGarden": true,
+    "acceptTouchTapAlternative": true
+  }
+}

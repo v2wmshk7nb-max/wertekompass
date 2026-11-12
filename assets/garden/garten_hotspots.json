@@ -1,0 +1,109 @@
+{
+  "sceneId": "garden",
+  "image": "garten_szene_start.png",
+  "imageWidth": 1448,
+  "imageHeight": 1086,
+  "note": "Hotspots sind Näherungswerte, anhand der sichtbaren Illustration setzen und auf echtem iPad nachjustieren.",
+  "interactiveAreas": {
+    "trowel": {
+      "type": "polygon",
+      "points": [
+        [
+          120,
+          846
+        ],
+        [
+          340,
+          801
+        ],
+        [
+          410,
+          902
+        ],
+        [
+          184,
+          1060
+        ]
+      ],
+      "label": "Schaufel"
+    },
+    "plant_sunflower": {
+      "type": "rect",
+      "x": 375,
+      "y": 675,
+      "w": 205,
+      "h": 320,
+      "label": "Sonnenblumen-Setzling"
+    },
+    "plant_coneflower": {
+      "type": "rect",
+      "x": 635,
+      "y": 724,
+      "w": 210,
+      "h": 275,
+      "label": "Purpur-Sonnenhut-Setzling"
+    },
+    "plant_marigold": {
+      "type": "rect",
+      "x": 866,
+      "y": 718,
+      "w": 240,
+      "h": 285,
+      "label": "Ringelblumen-Setzling"
+    },
+    "planting_place": {
+      "type": "ellipse",
+      "cx": 873,
+      "cy": 562,
+      "rx": 112,
+      "ry": 40,
+      "label": "Freie Pflanzstelle"
+    },
+    "watering_can": {
+      "type": "polygon",
+      "points": [
+        [
+          546,
+          240
+        ],
+        [
+          680,
+          233
+        ],
+        [
+          800,
+          333
+        ],
+        [
+          748,
+          419
+        ],
+        [
+          570,
+          400
+        ]
+      ],
+      "label": "Gießkanne"
+    }
+  },
+  "plants": [
+    "Sonnenblume",
+    "Purpur-Sonnenhut",
+    "Ringelblume"
+  ],
+  "interactionOrder": [
+    "Loch graben",
+    "Pflanze wählen",
+    "Setzling ziehen",
+    "Gießen",
+    "Wachstum"
+  ],
+  "completionEvent": "gardenCompleted",
+  "globalRules": {
+    "threeDifferentActivitiesPerRound": true,
+    "preserveBankActivity": true,
+    "noVoiceInstructions": true,
+    "noScore": true,
+    "noCountdown": true
+  }
+}

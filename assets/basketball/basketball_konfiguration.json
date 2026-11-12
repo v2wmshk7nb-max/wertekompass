@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "referenceSize": {
+    "width": 1448,
+    "height": 1086
+  },
+  "assets": {
+    "sceneBackground": "basketball_szene_ohne_ball.png",
+    "ball": "basketball_ball_transparent.png",
+    "shadow": "basketball_schatten_transparent.png",
+    "originalReference": "basketball_original_referenz.png"
+  },
+  "anchorPoints": {
+    "ballStartCenter": {
+      "x": 603,
+      "y": 957,
+      "nx": 0.41644,
+      "ny": 0.88122
+    },
+    "hoopCenter": {
+      "x": 1038,
+      "y": 198,
+      "nx": 0.71685,
+      "ny": 0.18232
+    },
+    "hoopNetBottom": {
+      "x": 1039,
+      "y": 307,
+      "nx": 0.71754,
+      "ny": 0.28269
+    },
+    "backboardCenter": {
+      "x": 1064,
+      "y": 144,
+      "nx": 0.73481,
+      "ny": 0.1326
+    }
+  },
+  "sprites": {
+    "ball": {
+      "width": 175,
+      "height": 175,
+      "radiusApproxPx": 82
+    },
+    "shadow": {
+      "width": 270,
+      "height": 100
+    }
+  },
+  "interaction": {
+    "gesture": "touch-or-mouse-swipe-from-ball",
+    "swipeTarget": "basketball_ball_transparent.png",
+    "minGesturePxAtReferenceWidth": 48,
+    "suggestedMaxGesturePxAtReferenceWidth": 260,
+    "largeTouchTarget": true,
+    "firstTryNotGuaranteed": true,
+    "assistAfterMisses": 3,
+    "maxMissesBeforeGuaranteedAssist": 5,
+    "noScoreAndNoTimer": true
+  },
+  "completion": {
+    "countsAsOneOfThreeOnlyAfterScored": true,
+    "returnToMainWorldOnScore": true,
+    "reuseExistingCrossfade": true,
+    "resetStatePerNewRound": true
+  },
+  "notes": "Grafik-Koordinaten gelten für das Original 1448x1086; sichtbarer Bildausschnitt bei object-fit: contain berücksichtigen. Hintergrund an entfernter Ballposition ist mittels benachbarter Bodenstruktur retuschiert; vor Freigabe im Browser prüfen."
+}

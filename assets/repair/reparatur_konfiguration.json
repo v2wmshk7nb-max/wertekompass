@@ -1,0 +1,109 @@
+{
+  "scene": "spielgeraet_reparieren",
+  "artwork": {
+    "source": "reparatur_szene_original.png",
+    "cleanWorkingCopy": "reparatur_szene_ohne_feste_schrauben.png",
+    "width": 1448,
+    "height": 1086,
+    "format": "landscape"
+  },
+  "screws": [
+    {
+      "id": "schraube_1",
+      "head_center": [
+        726,
+        500
+      ],
+      "tip_x": 765,
+      "head_radius": 18,
+      "order": 1
+    },
+    {
+      "id": "schraube_2",
+      "head_center": [
+        716,
+        593
+      ],
+      "tip_x": 757,
+      "head_radius": 18,
+      "order": 2
+    },
+    {
+      "id": "schraube_3",
+      "head_center": [
+        703,
+        692
+      ],
+      "tip_x": 749,
+      "head_radius": 18,
+      "order": 3
+    }
+  ],
+  "screwSprite": {
+    "size": [
+      106,
+      72
+    ],
+    "headCenterLocalStart": [
+      27,
+      35
+    ],
+    "shiftHeadXFullDrivePx": 31,
+    "scaleWithImage": true
+  },
+  "hitboxes": {
+    "drill_body": {
+      "x": 476,
+      "y": 451,
+      "width": 205,
+      "height": 204,
+      "description": "Schrauber-Grafik anklicken, dann automatisches Ansetzen; manuell mit dem Bild abstimmen"
+    },
+    "trigger": {
+      "x": 505,
+      "y": 537,
+      "width": 88,
+      "height": 86,
+      "description": "Unsichtbarer großzügiger Haltebereich nahe Griff/Finger; Position durch Codex nachjustieren"
+    },
+    "screw_work_area": {
+      "x": 674,
+      "y": 465,
+      "width": 120,
+      "height": 260,
+      "description": "Nur für Debug/Highlight, nicht als komplettes Spielhotspot"
+    }
+  },
+  "gameplay": {
+    "requiredScrews": 3,
+    "pressDurationMsPerScrew": 1300,
+    "pressAndHold": true,
+    "releasePausesProgress": true,
+    "tapToggleAccessibilityAlternative": true,
+    "autoGuideDrillToNextScrew": true,
+    "completeCountsAsOneActivity": true,
+    "audio": {
+      "drillLoop": "audio/akkuschrauber_loop.mp3",
+      "screwDone": "audio/schraube_fest.mp3",
+      "optional": true
+    },
+    "ui": {
+      "highlight": "subtle",
+      "textInstructions": false,
+      "spokenInstructions": false,
+      "extraDialogBoxes": false
+    },
+    "animation": {
+      "chuckRotatesWhileTriggerPressed": true,
+      "headMovesIntoWood": true,
+      "shaftDisappears": true,
+      "completedScrewHeadRemainsFlush": true
+    }
+  },
+  "technicalNotes": [
+    "Pixelkoordinaten gelten für die 1448×1086-Grafik; korrekt auf Bildskalierung/Letterboxing umrechnen.",
+    "Die originalen Schrauben sind im Bild fest eingezeichnet; zum echten Reindrehen die technische Hintergrundversion plus separate überlagerte Schrauben benutzen.",
+    "Die bereinigte Holzfläche ist ein technischer Prototyp mit lokal leichten Retuschespuren; optische Qualität in Safari prüfen und gegebenenfalls verbessern.",
+    "Sprite-Grafiken sind technische Prototypen. Unterschiedlicher Maßstab, Schatten und Holzbild optisch in Codex abstimmen."
+  ]
+}

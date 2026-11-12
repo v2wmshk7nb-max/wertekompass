@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+<title>Wertekompass</title>
+<link rel="stylesheet" href="betrieb.css">
+</head>
+<body>
+<main id="station" aria-label="Wertekompass"></main>
+<div id="admin-ecke" aria-hidden="true"></div>
+<section id="verwaltung" aria-labelledby="admin-titel" hidden>
+ <div class="karte">
+  <h1 id="admin-titel">Geräteverwaltung</h1>
+  <form id="anmeldung" hidden>
+   <p id="auth-text"></p>
+   <label for="passwort">Passwort</label>
+   <input id="passwort" type="password" required maxlength="128" autocapitalize="off" spellcheck="false">
+   <div id="wiederholung" hidden>
+    <label for="passwort2">Passwort wiederholen</label>
+    <input id="passwort2" type="password" maxlength="128" autocomplete="new-password" autocapitalize="off" spellcheck="false">
+   </div>
+   <div class="aktionen"><button id="auth-button" type="submit">Entsperren</button><button type="button" data-schliessen>Schließen</button></div>
+  </form>
+  <form id="einstellungen" hidden>
+   <label for="geraet">Standort- oder Gerätename</label>
+   <input id="geraet" type="text" maxlength="80">
+   <p class="hinweis">Die Zeiten richten sich nach der lokalen Uhr des Geräts. Deaktivierte Tage bleiben schwarz.</p>
+   <div id="wochentage"></div>
+   <div class="aktionen"><button type="submit">Speichern und schließen</button><button type="button" data-schliessen>Schließen ohne Speichern</button></div>
+  </form>
+  <p id="meldung" role="status"></p>
+ </div>
+</section>
+<script type="module" src="betrieb.js"></script>
+</body></html>
