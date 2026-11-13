@@ -1,3 +1,4 @@
+import {spielschritt} from './spielsignale.js';
 import {installRoundHelp} from './rundenhilfe.js';
 import {basketballReady} from './basketball.js';
 import {repairReady} from './repair.js';
@@ -49,7 +50,7 @@ for(const [id,item]of Object.entries(activities)){
  });
  item.entry.addEventListener('click',async()=>{
   if(view!=='world'||round.unlocked||round.activities.has(id))return;
-  current=id;game.dataset.activity=id;camera.style.transformOrigin=id==='bank'?'85% 72%':id==='garden'?'50% 69%':id==='repair'?'87% 45%':id==='basketball'?'83% 18%':'17% 75%';
+  spielschritt();current=id;game.dataset.activity=id;camera.style.transformOrigin=id==='bank'?'85% 72%':id==='garden'?'50% 69%':id==='repair'?'87% 45%':id==='basketball'?'83% 18%':'17% 75%';
   state('entering');
   await Promise.all([
    animate(camera,[{transform:'translate(0,0) scale(1)'},{transform:item.zoom}],1200),

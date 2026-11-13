@@ -1,3 +1,4 @@
+import {spielschritt} from './spielsignale.js';
 import {GardenState,plantTypes} from './garden-state.js';
 import {plantArt,soilArt} from './garden-art.js';
 const scene=document.querySelector('#garden-scene');
@@ -47,9 +48,9 @@ function button(id,area){
  b.style.cssText=`left:${x/1448*100}%;top:${y/1086*100}%;width:${w/1448*100}%;height:${h/1086*100}%`;
  scene.append(b);buttons[id]=b;return b;
 }
-function choose(type){if(!model.choose(type))return;selectedOrigin=origins[type];refresh();}
+function choose(type){const changed=model.plant!==type;if(!model.choose(type))return;if(changed)spielschritt();selectedOrigin=origins[type];refresh();}
 async function pour(){
- if(!model.water())return;refresh();sound('pour');
+ if(!model.water())return;spielschritt();refresh();sound('pour');
  water.innerHTML=`<g class="moving-can" transform="translate(1010 400) rotate(-28)"><path d="M-28 0 Q-60 -65 -20 -74 Q25 -84 35 -36" fill="none" stroke="#426e29" stroke-width="10"/><path d="M-40 -46 Q0 -59 42 -45 L44 25 Q2 45 -40 24Z" fill="#89b83a" stroke="#355e2a" stroke-width="4"/><path d="M-39 -30 -112 -6 -112 9 -39 1" fill="#a6cb56" stroke="#355e2a" stroke-width="4"/><ellipse cx="-115" cy="1" rx="9" ry="18" fill="#b7d870" stroke="#355e2a" stroke-width="3"/></g><g class="water-stream" fill="none" stroke="#8ed9ec" stroke-width="4" stroke-linecap="round"><path d="M910 463 Q886 496 867 570"/><path d="M915 466 Q903 502 879 574"/><path d="M905 459 Q874 498 854 573"/></g>`;
  soil.style.filter='brightness(.8)';
  await new Promise(r=>setTimeout(r,1200));water.innerHTML='';
@@ -69,9 +70,9 @@ export const gardenReady=(async()=>{
  svg=document.createElementNS(NS,'svg');svg.setAttribute('viewBox',`0 0 ${config.imageWidth} ${config.imageHeight}`);svg.classList.add('garden-art');svg.setAttribute('aria-hidden','true');scene.append(svg);
  soil=group('garden-soil');plant=group('garden-plant');drag=group('garden-drag');water=group('garden-water');digTool=group('garden-dig-tool');
  for(const [id,area]of Object.entries(config.interactiveAreas))button(id,area);
- buttons.trowel.addEventListener('click',()=>{if(model.takeTrowel())refresh();});
- buttons.planting_place.addEventListener('click',()=>{if(model.step==='dig'){if(model.dig()){refresh();diggingMotion();soil.animate([{opacity:.5,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:350});}}else if(model.step==='water')pour();});
- buttons.watering_can.addEventListener('click',()=>{if(model.takeCan())refresh();});
+ buttons.trowel.addEventListener('click',()=>{if(model.takeTrowel()){spielschritt();refresh();}});
+ buttons.planting_place.addEventListener('click',()=>{if(model.step==='dig'){if(model.dig()){spielschritt();refresh();diggingMotion();soil.animate([{opacity:.5,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:350});}}else if(model.step==='water')pour();});
+ buttons.watering_can.addEventListener('click',()=>{if(model.takeCan()){spielschritt();refresh();}});
  for(const type of plantTypes){const b=buttons['plant_'+type];
   b.addEventListener('click',()=>choose(type));
   b.addEventListener('pointerdown',e=>{
@@ -80,7 +81,7 @@ export const gardenReady=(async()=>{
    drag.innerHTML=plantArt(type,{prefix:'drag'});drag.setAttribute('transform',`translate(${position.x} ${position.y})`);
   });
   b.addEventListener('pointermove',e=>{if(e.pointerId!==pointer)return;e.preventDefault();position=local(e);drag.setAttribute('transform',`translate(${position.x} ${position.y})`);buttons.planting_place.classList.toggle('drop-ready',target(position));hint();});
-  function stop(e){if(e.pointerId!==pointer)return;const p=local(e);pointer=null;drag.innerHTML='';buttons.planting_place.classList.remove('drop-ready');if(e.type==='pointerup'&&model.drop(target(p)))refresh();else refresh();}
+  function stop(e){if(e.pointerId!==pointer)return;const p=local(e);pointer=null;drag.innerHTML='';buttons.planting_place.classList.remove('drop-ready');if(e.type==='pointerup'&&model.drop(target(p)))spielschritt();refresh();}
   for(const event of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(event,stop);
  }
  refresh();scene.setAttribute('aria-busy','false');

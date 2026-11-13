@@ -1,3 +1,4 @@
+import {spielschritt} from './spielsignale.js';
 import {flightPoint,planShot,smooth} from './basketball-flight.js';
 
 const scene=document.querySelector('#basketball-scene');
@@ -93,7 +94,7 @@ ball.addEventListener('pointerup',e=>{
  if(gesture?.id!==e.pointerId)return;
  const {origin}=gesture;gesture=null;const p=point(e);
  const shot=planShot({dx:p.x-origin.x,dy:p.y-origin.y},start,hoop,config.interaction,misses);
- if(shot)throwBall(shot);else setPhase('idle');
+ if(shot){spielschritt();throwBall(shot);}else setPhase('idle');
 });
 for(const event of ['pointercancel','lostpointercapture'])ball.addEventListener(event,e=>{
  if(gesture?.id===e.pointerId)reset();

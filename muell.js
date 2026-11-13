@@ -1,3 +1,4 @@
+import {spielschritt} from './spielsignale.js';
 import {WasteSort,binAt} from './muell-state.js';
 
 const scene=document.querySelector('#muell-scene');
@@ -18,7 +19,7 @@ function sound(key){if(wasteSoundFiles[key])new Audio(wasteSoundFiles[key]).play
 function rect(el,x,y,w,h){const {width,height}=config.coordinateSystem;Object.assign(el.style,{left:x/width*100+'%',top:y/height*100+'%',width:w/width*100+'%',height:h/height*100+'%'});}
 function point(e){const r=scene.getBoundingClientRect(),{width,height}=config.coordinateSystem;return [(e.clientX-r.left)*width/r.width,(e.clientY-r.top)*height/r.height];}
 function delta(dx,dy){const r=scene.getBoundingClientRect(),{width,height}=config.coordinateSystem;return `translate(${dx*r.width/width}px,${dy*r.height/height}px)`;}
-function select(id){selected=id;scene.classList.toggle('waste-selected',Boolean(id));for(const [key,o] of objects)o.button.setAttribute('aria-pressed',String(key===id));}
+function select(id){if(id!==null&&selected!==id)spielschritt();selected=id;scene.classList.toggle('waste-selected',Boolean(id));for(const [key,o] of objects)o.button.setAttribute('aria-pressed',String(key===id));}
 async function animate(el,frames,duration){await el.animate(frames,{duration:reduced.matches?100:duration,easing:'ease-in-out'}).finished;}
 async function drop(id,bin){
  if(locked||scene.inert||!id||model.sorted.has(id))return;
@@ -27,6 +28,7 @@ async function drop(id,bin){
  o.button.classList.add('in-flight');
  const correct=model.sort(id,bin);
  if(correct){
+  spielschritt();
   const [x,y]=openings[bin];
   const [ox,oy]=o.initialPosition,[w,h]=o.size;
   const end=delta(x-ox-w/2,y-oy-h/2);

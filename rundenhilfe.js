@@ -1,3 +1,4 @@
+import {onSpielschritt,spielgesteAktiv} from './spielsignale.js';
 const select=s=>document.querySelector(s);
 const point=(node,x=.5,y=.5)=>{
  const r=node.getBoundingClientRect();
@@ -64,7 +65,7 @@ export function installRoundHelp(game){
  document.body.appendChild(layer);
  const light=layer.querySelector('.hilfe-licht'),hand=layer.querySelector('.hilfe-zeiger');
  const pointers=new Set();
- let last=null,phase='',target=null,resetting=false;
+ let lastInput=null,lastProgress=null,phase='',target=null,resetting=false;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  function hide(){layer.hidden=true;delete layer.dataset.stufe;phase='';target=null;}
  function draw(hint,stage){
@@ -86,12 +87,13 @@ export function installRoundHelp(game){
  }
  function refresh(){
   const view=game.dataset.view;
-  if(last===null||view==='start'||view==='board'||resetting){hide();return;}
-  const elapsed=Date.now()-last;
-  if(elapsed>=60000){
+  if(lastInput===null||view==='start'||view==='board'||resetting){hide();return;}
+  const now=Date.now();
+  if(now-lastInput>=60000){
    resetting=true;hide();window.location.reload();return;
   }
-  if(elapsed<15000){hide();return;}
+  const elapsed=now-lastProgress;
+  if(spielgesteAktiv()||elapsed<15000){hide();return;}
   draw(nextStep(view),elapsed>=30000?'geste':'licht');
  }
  function activity(event){
@@ -100,8 +102,8 @@ export function installRoundHelp(game){
   if(event.type==='pointermove'&&!pointers.has(event.pointerId)&&!event.buttons)return;
   if(event.type==='pointerup')pointers.delete(event.pointerId);
   const view=game.dataset.view;
-  if(last===null||view==='start'||view==='board'||resetting)return;
-  last=Date.now();hide();
+  if(lastInput===null||view==='start'||view==='board'||resetting)return;
+  lastInput=Date.now();
  }
  for(const name of ['pointerdown','pointerup','pointermove','keydown','click','wheel']){
   document.addEventListener(name,activity,{capture:true,passive:true});
@@ -110,5 +112,12 @@ export function installRoundHelp(game){
  window.addEventListener('blur',()=>pointers.clear());
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
  setInterval(refresh,200);
- return {begin(){last=Date.now();hide();},suspend(){last=null;hide();}};
+ onSpielschritt(()=>{
+  if(lastInput===null||resetting)return;
+  lastProgress=Date.now();hide();
+ });
+ return {
+  begin(){lastInput=lastProgress=Date.now();hide();},
+  suspend(){lastInput=lastProgress=null;hide();}
+ };
 }

@@ -1,3 +1,4 @@
+import {spielschritt,spielgeste} from './spielsignale.js';
 import {RepairProgress,screwGeometry} from './repair-state.js';
 
 const scene=document.querySelector('#repair-scene'),svg=scene.querySelector('svg');
@@ -11,6 +12,8 @@ function sound(name){
  if(audio.loop)loop=audio;audio.play().catch(()=>{});
 }
 function stop(){
+ spielgeste('repair',false);
+ if(model?.running)spielschritt();
  model?.stop();cancelAnimationFrame(frame);frame=0;
  if(loop){loop.pause();loop=null;}
  scene.classList.remove('drilling');trigger.setAttribute('aria-pressed','false');
@@ -37,7 +40,7 @@ function draw(index,withChuck=true){
 function setPhase(next){phase=next;scene.dataset.phase=next;}
 function choose(index,event){
  if(scene.inert||phase!=='choose'||index!==model.index)return;
- art[index].target.disabled=true;
+ spielschritt();art[index].target.disabled=true;
  setPhase('ready');trigger.disabled=false;
  if(event.detail===0)trigger.focus({preventScroll:true});
 }
@@ -46,6 +49,7 @@ function tick(now){
  const i=model.index;
  const done=model.advance(Math.max(0,now-last));last=now;draw(i);
  if(!done){frame=requestAnimationFrame(tick);return;}
+ spielschritt();
  const keyboard=key!==null;
  cancel();art[i].head.classList.add('repair-tight');sound('screwDone');trigger.disabled=true;
  setPhase('settling');
@@ -60,6 +64,7 @@ function tick(now){
 }
 function start(){
  if(phase!=='ready'||scene.inert||!model.start())return;
+ spielschritt();spielgeste('repair',true);
  last=performance.now();trigger.setAttribute('aria-pressed','true');scene.classList.add('drilling');sound('drillLoop');
  frame=requestAnimationFrame(tick);
 }
