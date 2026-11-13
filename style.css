@@ -215,3 +215,13 @@
 @media(prefers-reduced-motion:reduce){.hilfe-licht,#rundenhilfe .hilfe-zeiger{animation:none!important}.hilfe-zeiger{transform:translate(-13px,-3px)}}
 body:has(#rundenhilfe:not([hidden])) :is(#scene,#garden-scene,#repair-scene) :is(.tool,.garden-tool,.repair-control)::after,
 body:has(#rundenhilfe:not([hidden])) :is(.waste-object svg,.basketball-ball){animation:none!important}
+
+.pinsel-grafik{position:absolute;pointer-events:none;z-index:2;display:block}
+#scene[data-beweglicher-pinsel="true"] .brush{transform:none;cursor:grab}
+#scene.pinsel-gezogen .brush::after{visibility:hidden}
+#scene.farbe-noetig .tool[data-color][aria-pressed="true"]::after{border-color:#fff4be;box-shadow:0 0 15px 5px #ffe181}
+.pinsel-retusche{position:absolute;left:66.00838%;top:78.53348%;width:18.07301%;height:18.70351%;pointer-events:none;
+ mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent),linear-gradient(to bottom,transparent,#000 9%,#000 92%,transparent);mask-composite:intersect;
+ -webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent),linear-gradient(to bottom,transparent,#000 9%,#000 92%,transparent);-webkit-mask-composite:source-in}
+#scene .tool::after,#garden-scene .garden-tool::after,#repair-scene .repair-control::after{animation:none!important}
+#scene .tool[aria-pressed="false"]:not(:focus-visible)::after,#garden-scene .garden-tool:not(.drop-ready):not([aria-pressed="true"]):not(:focus-visible)::after,#repair-scene .repair-control:not(:focus-visible)::after{border-color:transparent}

@@ -19,8 +19,13 @@ function nextStep(view){
    return {target:select('[data-cue="'+entry.id.replace(/-entry$/,'')+'"]')||entry,kind:'tap'};
   }
   case 'bank': {
-   if(!select('#scene .brush[aria-pressed="true"]'))return tap('#scene [data-color][aria-pressed="true"]:enabled');
-   const canvas=select('#paint');
+   if(select('#scene').dataset.farbe!=='true')return tap('#scene [data-color][aria-pressed="true"]:enabled');
+   const canvas=select('#paint'),brush=select('#scene[data-beweglicher-pinsel="true"][data-pinsel-benutzt="false"] .brush');
+   if(brush){
+    const from=point(brush),to=point(canvas,.50,.29),rect=canvas.getBoundingClientRect();
+    to.x+=126*rect.width/1671;to.y-=12*rect.height/941;
+    return {target:brush,kind:'drag',from,to};
+   }
    return {target:canvas,kind:'swipe',area:within(canvas,.50,.29,.18,.075),
     from:point(canvas,.43,.29),to:point(canvas,.57,.29)};
   }
@@ -67,7 +72,7 @@ export function installRoundHelp(game){
  const pointers=new Set();
  let lastInput=null,lastProgress=null,phase='',target=null,resetting=false;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- function hide(){layer.hidden=true;delete layer.dataset.stufe;phase='';target=null;}
+ function hide(){layer.hidden=true;delete layer.dataset.stufe;delete layer.dataset.geste;phase='';target=null;}
  function draw(hint,stage){
   if(!hint){hide();return;}
   const p=hint.area||point(hint.target),a=hint.from||p,b=hint.to||a;
@@ -93,8 +98,8 @@ export function installRoundHelp(game){
    resetting=true;hide();window.location.reload();return;
   }
   const elapsed=now-lastProgress;
-  if(spielgesteAktiv()||elapsed<15000){hide();return;}
-  draw(nextStep(view),elapsed>=30000?'geste':'licht');
+  if(spielgesteAktiv()||elapsed<10000){hide();return;}
+  draw(nextStep(view),elapsed>=25000?'geste':'licht');
  }
  function activity(event){
   if(!event.isTrusted)return;

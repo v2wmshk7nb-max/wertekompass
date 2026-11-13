@@ -79,7 +79,7 @@ for(const [id,item]of Object.entries(activities)){
    for(const item of Object.values(activities))item.entry.disabled=true;
    boardEntry.hidden=false;
   }
-  state('world');
+  spielschritt();state('world');
   if(unlocked)window.dispatchEvent(new CustomEvent('valuesBoardUnlocked'));
  });
 }

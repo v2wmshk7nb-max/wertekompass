@@ -79,7 +79,7 @@ async function throwBall(shot){
   x:landed.x+(start.x-landed.x)*smooth(t),y:start.y-52*Math.sin(Math.PI*t)*(1-t),
   angle:landed.angle*(1-t)
  }));
- if(token===version)reset();
+ if(token===version){reset();spielschritt();}
 }
 ball.addEventListener('pointerdown',e=>{
  if(scene.inert||phase!=='idle'||gesture||e.button!==0)return;
