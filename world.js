@@ -21,6 +21,30 @@ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const round=new RoundProgress();
 let view='start',current=null;
 const help=installRoundHelp(game);
+const boardEntry=document.querySelector('#board-entry'),speaker=document.querySelector('#frage-anhoeren');
+const audio=document.querySelector('#board-audio');
+let playing=false,finale=false,resetTimer=0;
+function listen(finish=false){
+ // A board tap can promote an already playing preview to the finale.
+ if(finish){finale=true;game.classList.add('frage-abschluss');}
+ if(playing)return;
+ clearTimeout(resetTimer);playing=true;help.pause();
+ audio.currentTime=0;
+ audio.play().catch(audioFailed);
+}
+function audioFailed(){
+ if(!playing)return;
+ playing=false;finale=false;game.classList.remove('frage-abschluss');help.resume();
+}
+audio.addEventListener('error',audioFailed);
+audio.addEventListener('ended',()=>{
+ if(!playing)return;
+ playing=false;
+ if(finale)resetTimer=setTimeout(()=>location.reload(),10000);
+ else help.resume();
+});
+boardEntry.addEventListener('click',()=>{if(view==='world')listen(round.unlocked);});
+speaker.addEventListener('click',()=>{if(view!=='start')listen();});
 function state(next){
  view=next;game.dataset.view=next;
  for(const [id,item]of Object.entries(activities)){const enabled=next===id;item.scene.inert=!enabled;item.scene.setAttribute('aria-hidden',String(!enabled));}
@@ -40,7 +64,7 @@ startButton.addEventListener('click',()=>{
  // Paint-only fade: never depend on an animation callback to unlock the hit targets.
  startScreen.inert=true;
  startScreen.classList.add('departing');
- help.begin();state('world');
+ help.begin();boardEntry.hidden=false;speaker.hidden=false;state('world');
  setTimeout(()=>{startScreen.hidden=true;},reduced.matches?180:480);
  if(keyboard)world.querySelector('button:enabled')?.focus({preventScroll:true});
 });
@@ -77,29 +101,11 @@ for(const [id,item]of Object.entries(activities)){
   // Only distinct completed scenes count. No board finale/audio is started automatically.
   if(unlocked){
    for(const item of Object.values(activities))item.entry.disabled=true;
-   boardEntry.hidden=false;
+   boardEntry.dataset.abschluss='true';
+   boardEntry.setAttribute('aria-label','Werteboard: Abschluss anhören');
   }
   spielschritt();state('world');
   if(unlocked)window.dispatchEvent(new CustomEvent('valuesBoardUnlocked'));
  });
 }
 window.wertekompassRound={get completedActivities(){return [...round.activities]},get boardUnlocked(){return round.unlocked}};
-
-
-// This project previously exposed only valuesBoardUnlocked. The finale now waits for a tap.
-// The supplied recording is played only after an explicit tap on the unlocked board.
-export const valuesBoardSettings={question:'Wenn du was an dieser Schule verändern könntest, was wäre das?\n\nMale oder schreibe es auf.',audio:'audio/spur_werteboard.mp3',displayMs:20000};
-const boardEntry=document.querySelector('#board-entry'),board=document.querySelector('#values-board');
-boardEntry.addEventListener('click',()=>{
- if(view!=='world'||!round.unlocked)return;
- help.suspend();state('board');document.querySelector('#board-question').textContent=valuesBoardSettings.question;
- board.hidden=false;board.setAttribute('tabindex','-1');board.focus({preventScroll:true});
- const audio=document.querySelector('#board-audio');
- let scheduled=false;
- function resetAfter(ms){if(scheduled)return;scheduled=true;setTimeout(()=>location.reload(),ms);}
- if(!valuesBoardSettings.audio){resetAfter(valuesBoardSettings.displayMs);return;}
- audio.src=valuesBoardSettings.audio;
- audio.addEventListener('ended',()=>resetAfter(10000),{once:true});
- audio.addEventListener('error',()=>resetAfter(valuesBoardSettings.displayMs),{once:true});
- audio.play().catch(()=>resetAfter(valuesBoardSettings.displayMs));
-});

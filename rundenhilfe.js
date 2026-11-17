@@ -12,7 +12,7 @@ const within=(target,x,y,w,h)=>{
 function nextStep(view){
  switch(view){
   case 'world': {
-   const board=select('#board-entry:not([hidden])');
+   const board=select('#board-entry[data-abschluss="true"]');
    if(board)return {target:board,kind:'tap'};
    const entry=select('.world-action:enabled');
    if(!entry)return null;
@@ -70,7 +70,7 @@ export function installRoundHelp(game){
  document.body.appendChild(layer);
  const light=layer.querySelector('.hilfe-licht'),hand=layer.querySelector('.hilfe-zeiger');
  const pointers=new Set();
- let lastInput=null,lastProgress=null,phase='',target=null,resetting=false;
+ let lastInput=null,lastProgress=null,phase='',target=null,resetting=false,pausedAt=null;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  function hide(){layer.hidden=true;delete layer.dataset.stufe;delete layer.dataset.geste;phase='';target=null;}
  function draw(hint,stage){
@@ -92,7 +92,7 @@ export function installRoundHelp(game){
  }
  function refresh(){
   const view=game.dataset.view;
-  if(lastInput===null||view==='start'||view==='board'||resetting){hide();return;}
+  if(pausedAt!==null||lastInput===null||view==='start'||view==='board'||resetting){hide();return;}
   const now=Date.now();
   if(now-lastInput>=60000){
    resetting=true;hide();window.location.reload();return;
@@ -107,7 +107,7 @@ export function installRoundHelp(game){
   if(event.type==='pointermove'&&!pointers.has(event.pointerId)&&!event.buttons)return;
   if(event.type==='pointerup')pointers.delete(event.pointerId);
   const view=game.dataset.view;
-  if(lastInput===null||view==='start'||view==='board'||resetting)return;
+  if(pausedAt!==null||lastInput===null||view==='start'||view==='board'||resetting)return;
   lastInput=Date.now();
  }
  for(const name of ['pointerdown','pointerup','pointermove','keydown','click','wheel']){
@@ -119,10 +119,19 @@ export function installRoundHelp(game){
  setInterval(refresh,200);
  onSpielschritt(()=>{
   if(lastInput===null||resetting)return;
-  lastProgress=Date.now();hide();
+  lastProgress=pausedAt??Date.now();hide();
  });
  return {
-  begin(){lastInput=lastProgress=Date.now();hide();},
-  suspend(){lastInput=lastProgress=null;hide();}
+  begin(){lastInput=lastProgress=pausedAt??Date.now();hide();},
+  pause(){
+   if(pausedAt===null)pausedAt=Date.now();
+   hide();
+  },
+  resume(){
+   if(pausedAt===null)return;
+   const pausedFor=Date.now()-pausedAt;
+   if(lastInput!==null){lastInput+=pausedFor;lastProgress+=pausedFor;}
+   pausedAt=null;refresh();
+  }
  };
 }

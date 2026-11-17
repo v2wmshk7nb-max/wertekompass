@@ -86,12 +86,7 @@
 .repair-success #repair-screws{filter:drop-shadow(0 0 5px #ffe5a2)}
 @keyframes repair-glint{42%{filter:drop-shadow(0 0 9px #fff0bb)}}
 #board-entry{position:absolute;left:58%;top:27%;width:18%;height:14%;border:2px solid #fce6a5;background:#ffeeb222;box-shadow:0 0 18px #ffe2949a;border-radius:11%;cursor:pointer;touch-action:manipulation;animation:hint 2.6s ease-in-out infinite}
-#values-board{position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:#2634298c;outline:0;animation:board-fade .5s ease-out}
-#values-board[hidden],#board-entry[hidden]{display:none}
-.board-paper{width:min(75%,34rem);padding:clamp(1.3rem,4vw,3rem);background:#fff0cf;border:9px solid #9c6238;border-radius:18px;box-shadow:0 12px 34px #30211370;color:#523622;text-align:center}
-.board-paper h1{font-size:clamp(1rem,2.4vw,1.55rem);margin:0 0 .8em}
-.board-paper p{font-size:clamp(1.35rem,3.4vw,2.25rem);margin:0}
-@keyframes board-fade{from{opacity:0}}
+#board-entry[hidden]{display:none}
 @media(prefers-reduced-motion:reduce){#repair-scene:not(.drilling) .repair-control:not(:disabled)::after,#board-entry{animation:none;border-color:#fff0bc}}
 /* Zoomed artwork extends beyond the stage; keep focus from scrolling the camera. */
 #game{overflow:clip}
@@ -132,12 +127,10 @@
 #world-camera>.background{transition:filter .48s ease}
 #game[data-view="start"] #world-camera>.background{filter:blur(3px) brightness(.87)}
 #game[data-view="start"] #world-camera>button{visibility:hidden}
-#start-button,.board-paper{font-family:Inter,system-ui,sans-serif;font-weight:700}
+#start-button{font-family:Inter,system-ui,sans-serif;font-weight:700}
 #start-button{font-size:clamp(1.7rem,4.5vmin,3rem);padding:.65em 1.85em;border-radius:1em;border:3px solid #fff0bb;background:linear-gradient(#ffe5a0,#efbd62);box-shadow:0 0 0 2px #784925,0 7px 0 #815331,0 13px 24px #26160565;color:#432817;cursor:pointer;touch-action:manipulation}
 #start-button:focus-visible{outline:4px solid #fff6cf;outline-offset:8px}
 #start-button:active{transform:translateY(2px)}
-.board-paper{width:min(83%,47rem);background:#fff4d8;color:#442b19;text-wrap:balance}
-.board-paper p{font-size:clamp(1.25rem,3.45vmin,2.45rem);line-height:1.4}
 #muell-entry{width:31%}
 #repair-entry{height:26%}
 #board-entry{border:4px solid #fff3b4;background:#ffeeb226;box-shadow:0 0 0 2px #76512a,0 0 21px 7px #ffe184b9;animation:board-beacon 2.6s ease-in-out infinite}
@@ -186,7 +179,6 @@
 #garden-entry:focus-visible ~ .world-cues [data-cue="garden"] .cue-shimmer,
 #bench-entry:focus-visible ~ .world-cues [data-cue="bench"] .cue-shimmer,
 #muell-entry:focus-visible ~ .world-cues [data-cue="muell"] .cue-shimmer{animation:none;opacity:1;filter:drop-shadow(0 0 5px #ffce60)}
-#board-question{white-space:pre-line}
 #board-entry{border:5px solid #fffde7;box-shadow:0 0 0 3px #805023,0 0 0 7px #ffcc42,0 0 24px 10px #ffbf45}
 @media(prefers-reduced-motion:reduce){
  #world-camera>.background{transition:none}
@@ -225,3 +217,12 @@ body:has(#rundenhilfe:not([hidden])) :is(.waste-object svg,.basketball-ball){ani
  -webkit-mask-image:linear-gradient(to right,transparent,#000 6%,#000 94%,transparent),linear-gradient(to bottom,transparent,#000 9%,#000 92%,transparent);-webkit-mask-composite:source-in}
 #scene .tool::after,#garden-scene .garden-tool::after,#repair-scene .repair-control::after{animation:none!important}
 #scene .tool[aria-pressed="false"]:not(:focus-visible)::after,#garden-scene .garden-tool:not(.drop-ready):not([aria-pressed="true"]):not(:focus-visible)::after,#repair-scene .repair-control:not(:focus-visible)::after{border-color:transparent}
+
+/* The board stays part of the illustration, including during the audio finale. */
+#board-entry:not([data-abschluss]){background:transparent;border:0;box-shadow:none;animation:none}
+#game:not([data-view="world"]) #board-entry{pointer-events:none}
+.frage-abschluss #board-entry{animation:none}
+#frage-anhoeren{position:absolute;right:clamp(8px,2vw,24px);bottom:clamp(8px,2vw,24px);z-index:11;width:48px;height:48px;display:grid;place-items:center;padding:9px;border-radius:50%;border:2px solid #fff0bd;background:#493c29eb;color:#fff6db;cursor:pointer;touch-action:manipulation}
+#frage-anhoeren[hidden]{display:none}
+#frage-anhoeren svg{width:100%;height:100%;pointer-events:none}
+#frage-anhoeren:focus-visible{outline:3px solid white;outline-offset:3px}
