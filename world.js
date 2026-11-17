@@ -22,11 +22,14 @@ const round=new RoundProgress();
 let view='start',current=null;
 const help=installRoundHelp(game);
 const boardEntry=document.querySelector('#board-entry'),speaker=document.querySelector('#frage-anhoeren');
-const audio=document.querySelector('#board-audio');
+const audio=document.querySelector('#board-audio'),banner=document.querySelector('#values-board');
 let playing=false,finale=false,resetTimer=0;
 function listen(finish=false){
  // A board tap can promote an already playing preview to the finale.
- if(finish){finale=true;game.classList.add('frage-abschluss');}
+ if(finish){
+  finale=true;game.classList.add('frage-abschluss');
+  state('board');banner.hidden=false;banner.focus({preventScroll:true});
+ }
  if(playing)return;
  clearTimeout(resetTimer);playing=true;help.pause();
  audio.currentTime=0;
@@ -34,7 +37,12 @@ function listen(finish=false){
 }
 function audioFailed(){
  if(!playing)return;
- playing=false;finale=false;game.classList.remove('frage-abschluss');help.resume();
+ playing=false;
+ if(finale){
+  finale=false;game.classList.remove('frage-abschluss');
+  banner.hidden=true;state('world');boardEntry.focus({preventScroll:true});
+ }
+ help.resume();
 }
 audio.addEventListener('error',audioFailed);
 audio.addEventListener('ended',()=>{

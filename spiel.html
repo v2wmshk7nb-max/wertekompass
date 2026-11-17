@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8"><script>if(window.parent===window)location.replace("./");</script><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#314c35"><title>Wertekompass · Schulwelt</title><link rel="stylesheet" href="style.css?v=frage-audio-1"></head>
+<html lang="de"><head><meta charset="utf-8"><script>if(window.parent===window)location.replace("./");</script><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#314c35"><title>Wertekompass · Schulwelt</title><link rel="stylesheet" href="style.css?v=abschlussbanner-1"></head>
 <body><div id="game" data-view="start">
 <section id="world" aria-label="Schulwelt" aria-hidden="true" inert>
 <div id="world-camera">
@@ -72,8 +72,17 @@
 <section id="start-screen" aria-label="Wertekompass starten">
  <button id="start-button" type="button">Starten</button>
 </section>
+<section id="values-board" aria-labelledby="board-heading" tabindex="-1" hidden>
+ <div class="board-paper">
+  <h1 id="board-heading">Frage des Monats</h1>
+  <div id="board-question">
+   <p>Wenn du was an dieser Schule verändern könntest, was wäre das?</p>
+   <p>Male oder schreibe es auf.</p>
+  </div>
+ </div>
+</section>
 <audio id="board-audio" preload="none" src="audio/spur_werteboard.mp3" hidden></audio>
 <button id="frage-anhoeren" type="button" aria-label="Frage des Monats anhören" hidden>
  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9v6h4l5 4V5L7 9H3Z" fill="currentColor"/><path d="M15 9a4 4 0 0 1 0 6m2.5-8a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
 </button>
-</div><script type="module" src="world.js?v=frage-audio-1"></script></body></html>
+</div><script type="module" src="world.js?v=abschlussbanner-1"></script></body></html>
