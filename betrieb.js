@@ -1,4 +1,4 @@
-import {activeAt,credentialKey,days,defaults,minutes,readSettings,settingsKey,validSettings} from './betriebszeiten.js';
+import {activeAt,credentialKey,days,defaults,minutes,readSettings,settingsKey,validSettings} from './betriebszeiten.js?v=zugang-2';
 import {createCredential,matches,validCredential} from './admin-passwort.js';
 
 const station=document.querySelector('#station'),corner=document.querySelector('#admin-ecke');
@@ -6,7 +6,7 @@ const panel=document.querySelector('#verwaltung'),auth=document.querySelector('#
 const configForm=document.querySelector('#einstellungen'),message=document.querySelector('#meldung');
 const password=document.querySelector('#passwort'),confirmation=document.querySelector('#passwort2');
 const repeat=document.querySelector('#wiederholung'),authButton=document.querySelector('#auth-button');
-const nameInput=document.querySelector('#geraet');
+const nameInput=document.querySelector('#geraet'),scheduleEnabled=document.querySelector('#zeitbegrenzung');
 const holdMs=4000,idleMs=120000;
 let settings=defaults(),settingsReadable=true,frame=null,mode='closed',epoch=0;
 let credential=null,hold=null,idleTimer=0,deadline=0,busy=false,nextAttempt=0,failures=0;
@@ -98,6 +98,7 @@ const fields=days.map((day,i)=>{
 function showSettings(){
  mode='settings';auth.reset();auth.hidden=true;configForm.hidden=false;
  nameInput.value=settings.name;
+ scheduleEnabled.checked=settings.enabled;
  fields.forEach((f,i)=>{
   const day=settings.days[i];f.enabled.checked=day.enabled;f.start.value=day.start;f.end.value=day.end;f.end.setCustomValidity('');f.refresh();
  });
@@ -131,7 +132,7 @@ auth.addEventListener('submit',async e=>{
 });
 configForm.addEventListener('submit',e=>{
  e.preventDefault();if(mode!=='settings')return;
- const next={name:nameInput.value.trim(),days:fields.map(f=>({enabled:f.enabled.checked,start:f.start.value,end:f.end.value}))};
+ const next={name:nameInput.value.trim(),enabled:scheduleEnabled.checked,days:fields.map(f=>({enabled:f.enabled.checked,start:f.start.value,end:f.end.value}))};
  const invalid=next.days.findIndex(d=>d.enabled&&minutes(d.end)<=minutes(d.start));
  if(invalid!==-1){
   const end=fields[invalid].end;end.setCustomValidity('Die Endzeit muss nach der Startzeit liegen.');end.reportValidity();return;

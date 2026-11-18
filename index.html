@@ -27,12 +27,13 @@
   <form id="einstellungen" hidden>
    <label for="geraet">Standort- oder Gerätename</label>
    <input id="geraet" type="text" maxlength="80">
-   <p class="hinweis">Die Zeiten richten sich nach der lokalen Uhr des Geräts. Deaktivierte Tage bleiben schwarz.</p>
+   <label><input id="zeitbegrenzung" type="checkbox"> Zeitbegrenzung aktiviert</label>
+   <p class="hinweis">Ohne Häkchen ist das Spiel jederzeit nutzbar. Bei aktivierter Zeitbegrenzung gelten die folgenden Zeiten nach der lokalen Uhr des Geräts. Deaktivierte Tage bleiben dann schwarz.</p>
    <div id="wochentage"></div>
    <div class="aktionen"><button type="submit">Speichern und schließen</button><button type="button" data-schliessen>Schließen ohne Speichern</button></div>
   </form>
   <p id="meldung" role="status"></p>
  </div>
 </section>
-<script type="module" src="betrieb.js"></script>
+<script type="module" src="betrieb.js?v=zugang-2"></script>
 </body></html>
